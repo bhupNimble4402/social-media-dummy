@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
@@ -6,8 +6,9 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
-import { User } from './users/entities/user.entity';
 import { JwtModule } from '@nestjs/jwt';
+import { KyaResponseJaaRhaHaiMiddleware } from './middleware/kya-response-jaa-rha-hai.middleware';
+import { UsersController } from './users/users.controller';
 
 @Module({
 	imports: [
@@ -22,9 +23,7 @@ import { JwtModule } from '@nestjs/jwt';
 			database: process.env.DB_NAME,
 			username: process.env.DB_USERNAME,
 			password: process.env.DB_PASSWORD,
-			logger: 'file',
-			logging: 'all',
-			entities: [User],
+			entities: [__dirname + '/**/*.entity{.ts,.js}'],
 			synchronize: true,
 		}),
 		AuthModule,
@@ -35,4 +34,10 @@ import { JwtModule } from '@nestjs/jwt';
 })
 export class AppModule {
 	constructor(private dataSource: DataSource) {}
+
+	configure(consumer: MiddlewareConsumer) {
+		consumer
+			.apply(KyaResponseJaaRhaHaiMiddleware)
+			.forRoutes(UsersController);
+	}
 }
