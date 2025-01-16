@@ -30,7 +30,13 @@ export class User {
 		nullable: true,
 		default: null,
 	})
-	dateOfBirth: Date;
+	dateOfBirth: Date | null;
+
+	@Column('text', {
+		nullable: true,
+		default: null,
+	})
+	profileImage: string | null;
 
 	@Column('longtext', {
 		nullable: true,

@@ -9,6 +9,8 @@ import { DataSource } from 'typeorm';
 import { JwtModule } from '@nestjs/jwt';
 import { KyaResponseJaaRhaHaiMiddleware } from './middleware/kya-response-jaa-rha-hai.middleware';
 import { UsersController } from './users/users.controller';
+import { AppContentModule } from './app-content/app-content.module';
+import { FilesModule } from './files/files.module';
 
 @Module({
 	imports: [
@@ -25,9 +27,13 @@ import { UsersController } from './users/users.controller';
 			password: process.env.DB_PASSWORD,
 			entities: [__dirname + '/**/*.entity{.ts,.js}'],
 			synchronize: true,
+			logger: 'file',
+			logging: 'all',
 		}),
 		AuthModule,
 		UsersModule,
+		AppContentModule,
+		FilesModule,
 	],
 	controllers: [AppController],
 	providers: [AppService],
