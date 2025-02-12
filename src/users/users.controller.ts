@@ -11,8 +11,6 @@ import { UsersService } from './users.service';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { successResponse } from 'src/utils/response';
 import { FileInterceptor } from '@nestjs/platform-express';
-/* import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto'; */
 
 @UseGuards(AuthGuard)
 @Controller('user')

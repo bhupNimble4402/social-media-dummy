@@ -27,8 +27,6 @@ import { FilesModule } from './files/files.module';
 			password: process.env.DB_PASSWORD,
 			entities: [__dirname + '/**/*.entity{.ts,.js}'],
 			synchronize: true,
-			logger: 'file',
-			logging: 'all',
 		}),
 		AuthModule,
 		UsersModule,
