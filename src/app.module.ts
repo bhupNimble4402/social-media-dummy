@@ -11,6 +11,11 @@ import { KyaResponseJaaRhaHaiMiddleware } from './middleware/kya-response-jaa-rh
 import { UsersController } from './users/users.controller';
 import { AppContentModule } from './app-content/app-content.module';
 import { FilesModule } from './files/files.module';
+import { User } from './users/entities/user.entity';
+import { AppContent } from './app-content/dto/appContent.dto';
+import { Post } from './app-content/dto/post.dto';
+import { Status } from './app-content/dto/status.dto';
+import { PostMedia } from './app-content/dto/postMedia.dto';
 
 @Module({
 	imports: [
@@ -25,7 +30,7 @@ import { FilesModule } from './files/files.module';
 			database: process.env.DB_NAME,
 			username: process.env.DB_USERNAME,
 			password: process.env.DB_PASSWORD,
-			entities: [__dirname + '/**/*.entity{.ts,.js}'],
+			entities: [User, AppContent, Post, PostMedia, Status],
 			synchronize: true,
 		}),
 		AuthModule,

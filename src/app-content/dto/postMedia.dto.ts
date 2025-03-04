@@ -2,18 +2,17 @@ import {
 	Column,
 	CreateDateColumn,
 	DeleteDateColumn,
-	ManyToOne,
-	PrimaryGeneratedColumn,
 	UpdateDateColumn,
+	PrimaryGeneratedColumn,
+	ManyToOne,
+	Entity,
 } from 'typeorm';
 import { Post } from './post.dto';
 
+@Entity({ name: 'post_media' })
 export class PostMedia {
 	@PrimaryGeneratedColumn()
 	id: number;
-
-	@Column()
-	postId: number;
 
 	@Column()
 	type: string;
@@ -33,6 +32,6 @@ export class PostMedia {
 	@DeleteDateColumn()
 	deletedAt: Date;
 
-	@ManyToOne(() => Post, (post) => post.id) // Match 'data' in the User entity
+	@ManyToOne(() => Post, (post) => post.postMedia)
 	post: Post;
 }

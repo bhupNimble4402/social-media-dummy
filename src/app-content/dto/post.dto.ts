@@ -2,13 +2,16 @@ import {
 	Column,
 	CreateDateColumn,
 	DeleteDateColumn,
-	OneToMany,
-	PrimaryGeneratedColumn,
 	UpdateDateColumn,
+	PrimaryGeneratedColumn,
+	OneToMany,
+	OneToOne,
+	Entity,
 } from 'typeorm';
-
 import { PostMedia } from './postMedia.dto';
+import { AppContent } from './appContent.dto';
 
+@Entity({ name: 'posts' })
 export class Post {
 	@PrimaryGeneratedColumn()
 	id: number;
@@ -25,6 +28,11 @@ export class Post {
 	@DeleteDateColumn()
 	deletedAt: Date;
 
-	@OneToMany(() => PostMedia, (PostMedia) => PostMedia.postId)
-	data: PostMedia[];
+	@OneToOne(() => AppContent, (appContent) => appContent.post)
+	appContent: AppContent;
+
+	@OneToMany(() => PostMedia, (postMedia) => postMedia.post, {
+		cascade: true,
+	})
+	postMedia: PostMedia[];
 }

@@ -6,7 +6,7 @@ import {
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { Request } from 'express';
-import { simpleResponse } from 'src/utils/response';
+import { errorResponse, simpleResponse } from 'src/utils/response';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -31,8 +31,8 @@ export class AuthGuard implements CanActivate {
 			});
 		} catch (error) {
 			throw new UnauthorizedException(
-				simpleResponse({
-					status: false,
+				errorResponse({
+					data: error,
 					message: error?.message ?? 'Unauthorized',
 				}),
 			);

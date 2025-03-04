@@ -9,7 +9,7 @@ import { FilesService } from './files.service';
 import { createReadStream } from 'fs';
 import { join } from 'path';
 import { Response } from 'express';
-import { simpleResponse } from 'src/utils/response';
+import { errorResponse, simpleResponse } from 'src/utils/response';
 
 @Controller('files')
 export class FilesController {
@@ -32,10 +32,10 @@ export class FilesController {
 					message: `File "${param.filepath}" not found`,
 				}),
 			);
-		} catch {
+		} catch (error) {
 			throw new BadRequestException(
-				simpleResponse({
-					status: false,
+				errorResponse({
+					data: error,
 					message: `File "${param.filepath}" not found`,
 				}),
 			);

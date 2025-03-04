@@ -4,8 +4,14 @@ import {
 	DeleteDateColumn,
 	PrimaryGeneratedColumn,
 	UpdateDateColumn,
+	OneToOne,
+	JoinColumn,
+	Entity,
 } from 'typeorm';
+import { Post } from './post.dto';
+import { Status } from './status.dto';
 
+@Entity({ name: 'app_content' })
 export class AppContent {
 	@PrimaryGeneratedColumn()
 	id: number;
@@ -37,4 +43,13 @@ export class AppContent {
 
 	@DeleteDateColumn()
 	deletedAt: Date;
+
+	// Relationships
+	@OneToOne(() => Post, (post) => post.appContent, { cascade: true })
+	@JoinColumn()
+	post: Post;
+
+	@OneToOne(() => Status, (status) => status.appContent, { cascade: true })
+	@JoinColumn()
+	status: Status;
 }
