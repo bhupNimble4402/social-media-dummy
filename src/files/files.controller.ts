@@ -1,10 +1,4 @@
-import {
-	BadRequestException,
-	Controller,
-	Get,
-	Param,
-	Res,
-} from '@nestjs/common';
+import { BadRequestException, Controller, Get, Param, Res } from '@nestjs/common';
 import { FilesService } from './files.service';
 import { createReadStream } from 'fs';
 import { join } from 'path';
@@ -19,9 +13,7 @@ export class FilesController {
 	getFiles(@Param() param: any, @Res() res: Response) {
 		try {
 			if (param.filepath) {
-				let file = createReadStream(
-					join(process.cwd(), param.filepath),
-				);
+				let file = createReadStream(join(process.cwd(), param.filepath));
 
 				return file.pipe(res);
 			}

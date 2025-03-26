@@ -1,11 +1,5 @@
 import { Type } from 'class-transformer';
-import {
-	IsDate,
-	IsEmail,
-	IsNotEmpty,
-	IsStrongPassword,
-	Length,
-} from 'class-validator';
+import { IsDate, IsEmail, IsNotEmpty, IsStrongPassword, Length } from 'class-validator';
 
 export class RegisterDto {
 	@IsNotEmpty()

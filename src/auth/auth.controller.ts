@@ -20,9 +20,7 @@ export class AuthController {
 	@HttpCode(HttpStatus.OK)
 	@Post('login')
 	async login(@Body() login: LoginDto) {
-		let user = await this.authService.findUserByLoginValue(
-			login.loginValue,
-		);
+		let user = await this.authService.findUserByLoginValue(login.loginValue);
 
 		if (!(await Hashing.verify(login.password, user?.password))) {
 			throw new UnauthorizedException(

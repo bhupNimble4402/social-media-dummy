@@ -1,12 +1,13 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { JwtModule } from '@nestjs/jwt';
+import { DataSource } from 'typeorm';
+
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ConfigModule } from '@nestjs/config';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { DataSource } from 'typeorm';
-import { JwtModule } from '@nestjs/jwt';
 import { KyaResponseJaaRhaHaiMiddleware } from './middleware/kya-response-jaa-rha-hai.middleware';
 import { UsersController } from './users/users.controller';
 import { AppContentModule } from './app-content/app-content.module';
@@ -45,8 +46,6 @@ export class AppModule {
 	constructor(private dataSource: DataSource) {}
 
 	configure(consumer: MiddlewareConsumer) {
-		consumer
-			.apply(KyaResponseJaaRhaHaiMiddleware)
-			.forRoutes(UsersController);
+		consumer.apply(KyaResponseJaaRhaHaiMiddleware).forRoutes(UsersController);
 	}
 }
